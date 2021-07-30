@@ -25,7 +25,7 @@ const Register = () => {
   const classes = useStyles()
   return (
     <Grid className={classes.root} container>
-      <Grid item lg={4} md={4} xs={11} className={classes.formContainer}>
+      <Grid item lg={3} md={4} xs={11} className={classes.formContainer}>
         <RegisterForm />
       </Grid>
     </Grid>

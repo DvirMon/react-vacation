@@ -43,7 +43,7 @@ const Form: FunctionComponent<FormProps> = (
     buttonProps
   }) => {
   const {
-    formSchema, handleSubmit, errors
+    formSchema, handleSubmit, errors, isValid
   } = useFormBuilder(
     {
       formTemplate,
@@ -58,7 +58,7 @@ const Form: FunctionComponent<FormProps> = (
   return (
 
     <form onSubmit={handleSubmit(onSubmit)} className={classes.center}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3}> 
 
         {formSchema.map((group) => (
           <Grid item xs={12}>
@@ -75,6 +75,8 @@ const Form: FunctionComponent<FormProps> = (
             <Grid item xs={buttonSize || 12} className={classes.center}>
               <Button
                 className={classes.formButton}
+                disableRipple
+                disabled={!isValid}
                 fullWidth
                 type="submit"
                 variant="contained"

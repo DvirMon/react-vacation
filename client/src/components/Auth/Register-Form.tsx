@@ -6,6 +6,16 @@ import Form from "../Form/Form";
 import PasswordController from "../Form/PasswordController";
 
 import CardContainer from '../Card'
+import { Button, Grid, makeStyles, Theme } from "@material-ui/core";
+import { useNavigate } from "react-router";
+
+const useStyles = makeStyles((theme: Theme) => ({
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2)
+  }
+}))
 
 const formTemplate: FormGroupModel[] =
   [
@@ -25,10 +35,25 @@ const formTemplate: FormGroupModel[] =
 
 
 const RegisterForm: FunctionComponent = () => {
+  const navigate = useNavigate()
   const onSubmit = (data) => console.log(data)
+  const classes = useStyles()
   return (
 
     <CardContainer>
+      <Grid container>
+        <Grid className={classes.buttonContainer} item xs={12}>
+          <Button
+            fullWidth
+            disableRipple
+            variant="contained"
+            color="primary"
+            onClick={() => navigate('/')}
+          >
+            Back to Login
+          </Button>
+        </Grid>
+      </Grid>
       <Form
         formTemplate={formTemplate}
         schemaType="register"
