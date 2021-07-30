@@ -57,7 +57,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     } else {
       console.log(err);
     }
-  };
+  }; 
 
   const onSubmit = (data) => console.log(data)
 
@@ -69,7 +69,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
       <Grid item lg={12} xs={12}>
         <Form
           formTemplate={formTemplate}
-          schema="login"
+          schemaType="login"
           onSubmit={onSubmit}
           buttonProps={{ buttonTitle: "Login", hasButton: true }}
         />

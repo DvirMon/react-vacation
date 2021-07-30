@@ -47,7 +47,7 @@ const RegisterForm: FunctionComponent = () => {
       <CardContent >
         <Form
           formTemplate={formTemplate}
-          schema="register"
+          schemaType="register"
           onSubmit={onSubmit}
           buttonProps={{ buttonTitle: "Sign in", buttonColor: "secondary", hasButton: true }}
         />

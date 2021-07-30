@@ -1,77 +1,46 @@
-import { FunctionComponent, useMemo } from "react";
 import {
   makeStyles,
-  Box, Button, Grid, Theme
+  Box, Divider, Button, Grid
 } from '@material-ui/core';
-
+import useFormBuilder from '../../hooks/useFormBuilder';
 import FormGroup from './FormGroup';
 
-import useFormBuilder from "../../hooks/useFormBuilder";
+const Form = ({
+  schemaType, formTemplate, onSubmit, buttonProps
+}) => {
+  const {
+    formSchema, handleSubmit, errors
+  } = useFormBuilder(
+    {
+      formTemplate,
+      validationTemplate: schemaType
+    }
+  );
 
-import { FormGroupModel } from "../../models/form-model";
+  const { hasButton, buttonTitle, buttonColor } = buttonProps
 
-
-const useStyles = makeStyles<Theme>((theme: Theme) => ({
-  center: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  buttonContainer: {
-    width: '40%',
-  },
-  formButton: {
-    width: '100%',
-    height: 50,
-  }
-}))
-
-export interface FormButtonProps {
-  hasButton?: boolean
-  buttonTitle?: string,
-  buttonColor?: "inherit" | "default" | "primary" | "secondary",
-}
-
-export interface FormProps {
-  formTemplate: FormGroupModel[],
-  schema?: string,
-  onSubmit: any,
-  buttonProps: FormButtonProps
-}
-
-const Form: FunctionComponent<FormProps> = (
-  {
-    schema,
-    formTemplate,
-    onSubmit,
-    buttonProps,
-  }
-) => {
-
-  const template = useMemo(() => formTemplate, [formTemplate])
-  const { hasButton, buttonColor, buttonTitle } = useMemo(() => buttonProps || {}, [])
-  
-  const { formSchema, handleSubmit, isValid } = useFormBuilder({ formTemplate: template, validationTemplate: schema });
-
-  const classes = useStyles()
   return (
 
-    <form onSubmit={handleSubmit(onSubmit)} className={classes.center}>
-      <Grid container>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={3}>
 
-        <Grid item xs={12}>
-          {formSchema.map((group: FormGroupModel) => (
-            <FormGroup key={group.id} group={group} />
-          ))}
-        </Grid>
+        {formSchema.map((group) => (
+          <Grid item xs={12}>
+            <FormGroup group={group} errors={errors} />
+          </Grid>
+        ))}
 
         {hasButton && (
-          <Grid item xs={12} className={classes.center}>
-            <Box className={classes.buttonContainer}>
+          <Grid item xs={12}>
+            <Box mb={2}>
+              <Divider />
+            </Box>
+
+            <Box display="flex">
               <Button
-                className={classes.formButton}
                 type="submit"
+                color="primary"
                 variant="contained"
-                color={buttonColor || "primary"}
               >
                 {buttonTitle || 'Save'}
               </Button>
@@ -82,6 +51,6 @@ const Form: FunctionComponent<FormProps> = (
     </form>
 
   );
-}
+};
 
 export default Form;

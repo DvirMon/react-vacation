@@ -1,60 +1,77 @@
-import { FunctionComponent, useMemo } from "react";
-import { TextField } from "@material-ui/core";
-import useMessage from "../../hooks/useMessage";
-import { FormInputModel } from "../../models/form-model";
-import FormController from "./FormController";
+import { useMemo } from 'react';
+import {
+  TextField, MenuItem, makeStyles,
+} from '@material-ui/core';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import setMessage from '../../hooks/useMessage';
+import FormController from './FormController';
 
-export interface FormInputProps {
-  formControl?: FormInputModel
-  error?: any
-
-}
-
-const FormInput: FunctionComponent<FormInputProps> = (
-  {
-    formControl,
-    error,
+const useStyles = makeStyles((theme) => ({
+  select: {
+    '& svg': {
+      fontSize: 30,
+      color: `${theme.palette.primary.main} !important`
+    }
+  },
+  paper: {
+    top: 'calc(40%) !important',
+    border: `2px solid ${theme.palette.primary.main} !important`
   }
-) => {
-  // const message =  useMessage(error)
-  // const message = useMemo(() => useMessage({ ...error, key: label.toLocaleLowerCase() }), [error]);
-  
+}));
+
+const FormInput = ({
+  formControl, error, ...props
+}) => {
+  const message = useMemo(() => setMessage(error), [error]);
   const {
-    key,
-    variant,
-    type,
-    label,
-    helperText,
-    register,
-    control,
-    render,
-    Component,
-    formInputProps } = useMemo(() => formControl, [formControl])
+    key, label, type, placeHolder, render, register, control, Component, setValue,
+    inputProps
+  } = formControl;
 
+  const {
+    select, options
+  } = inputProps || {};
 
-  const { select } = formInputProps || {}
+  const classes = useStyles();
+
   return (
-    <>
-      {render ?
-        <FormController Component={Component} control={control} controlProps={{ ...formControl }} />
-        :
-        <TextField
-          select={select}
-          fullWidth
-          // error={!!message}
-          key={key}
-          label={label}
-          type={type || 'text'}
-          variant={variant || "filled"}
-          placeholder={label}
-          autoComplete="off"
-          InputProps={{
-            ...register(key)
-          }}
-          helperText={helperText || `Enter ${label}`}
-        />}
-    </>
+    <div>
+      {(render
+        ? <FormController control={control} controlProps={{ ...formControl, message, setValue }} Component={Component} />
+        : (
+          <TextField
+            {...props}
+            className={classes.select}
+            select={select}
+            fullWidth
+            error={!!message}
+            key={key}
+            label={label}
+            type={type || 'text'}
+            variant="outlined"
+            placeholder={placeHolder || label}
+            autoComplete="off"
+            InputProps={{
+              ...register(key),
+              ...inputProps,
+            }}
+            helperText={message || `Enter ${label}`}
+            SelectProps={{
+              IconComponent: KeyboardArrowDownIcon,
+              MenuProps: {
+                classes: { paper: classes.paper }
+              }
+            }}
+          >
+            {select && options.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        ))}
+    </div>
   );
-}
+};
 
 export default FormInput;

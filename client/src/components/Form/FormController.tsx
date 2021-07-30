@@ -1,24 +1,15 @@
-import { FunctionComponent } from 'react';
-import { Control, Controller, FieldValues } from 'react-hook-form';
-import { FormInputModel } from '../../models/form-model';
-
-export interface FormControllerProps {
-  Component?:  FunctionComponent,
-  control?:  Control<FieldValues>,
-  controlProps?: FormInputModel,
-  error?: any
-}
+import { Controller } from 'react-hook-form';
 
 const FormController = ({
   Component, control, controlProps, ...props
 }) => {
-  const { key } = controlProps;
+  const { key, defaultValue } = controlProps;
   return (
     <Controller
       {...props}
       control={control}
       name={key}
-      defaultValue=""
+      defaultValue={defaultValue || ''}
       render={({
         field
       }) => (
@@ -28,4 +19,4 @@ const FormController = ({
   );
 };
 
-export default FormController; 
+export default FormController;

@@ -1,15 +1,13 @@
-import { FunctionComponent } from "react";
+import React from 'react';
 import {
   makeStyles,
-  Box, Grid, Divider
+  Grid
 } from '@material-ui/core';
 import FormInput from './FormInput';
-import { FormGroupModel, FormInputModel } from "../../models/form-model";
-import { DeepMap, FieldError, FieldValues } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    justifyContent: 'center',
+    paddingTop: '0px !important',
   },
   divider: {
     height: '100% !important',
@@ -23,44 +21,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export interface FormGroupProps {
-  group: FormGroupModel
-  errors?: DeepMap<FieldValues, FieldError>
-}
-
-const FormGroup: FunctionComponent<FormGroupProps> = (
-  {
-    group,
-    errors
-  }
-) => {
-
-  const { title, divider, controls, } = group;
-
+const FormGroup = ({ group, errors }) => {
+  const { controls, } = group;
   const classes = useStyles();
-
   return (
+
     <Grid item xs={12}>
 
-      {divider
-
-        && (
-          <Box mb={2}>
-            <Divider />
-          </Box>
-        )}
-      {title &&
-        <Box mb={2}>
-            {title}
-        </Box>
-      }
-
-      <Grid container spacing={3} className={classes.container}>
-        {controls.map((control: FormInputModel) => {
-          const { id, size, key, label } = control;
+      <Grid container spacing={3}>
+        {controls.map((formControl) => {
+          const {
+            size, key, label
+          } = formControl;
           return (
-            <Grid key={id} item xs={size || 12} > 
-              <FormInput formControl={control}/>
+            <Grid key={key} item xs={size || 2}>
+              <FormInput formControl={formControl} error={{ ...errors[key], key: label.toLowerCase() }} />
             </Grid>
           );
         })}
@@ -68,6 +43,6 @@ const FormGroup: FunctionComponent<FormGroupProps> = (
 
     </Grid>
   );
-}
+};
 
 export default FormGroup;

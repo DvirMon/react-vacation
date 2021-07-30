@@ -16,7 +16,6 @@ interface FormBuilderModel {
   watch: UseFormWatch<FieldValues>
 }
 
-
 const setControls = (controls: FormInputModel[], formProps: FormBuilderModel) => controls.map((control: FormInputModel) => {
   const { label, key } = control;
   return ({
