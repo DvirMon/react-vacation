@@ -1,8 +1,10 @@
+import { useMemo } from 'react';
 import { FormGroupModel, FormInputModel } from './../models/form-model';
 import { Control, FieldValues, UseFormWatch, useForm, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import useValidation from './useValidation';
 import { v4 as uuid } from 'uuid';
+import { useCallback } from 'react';
 
 export interface FormBuilderProps {
   formTemplate?: FormGroupModel[],
@@ -28,11 +30,11 @@ const setControls = (controls: FormInputModel[], formProps: FormBuilderModel) =>
 
 const setGroup = (template: FormGroupModel, formProps: FormBuilderModel) => {
   if (template !== undefined) {
-    const { title, controls } = template;
+    const { controls } = template;
 
     return {
       id: uuid(),
-      title: title || null,
+      ...template,
       controls: setControls(controls, formProps)
     };
   }
@@ -58,12 +60,12 @@ const useFormBuilder = (options?: FormBuilderProps) => {
       formState: { errors, isValid },
     } = useForm( 
       { 
-        mode: 'onBlur',
+        mode: 'onBlur', 
         resolver: joiResolver(schema)
       }
     );
 
-  const form = setForm(formTemplate, { register, control, setValue, watch });
+  const form = useMemo(() =>  setForm(formTemplate, { register, control, setValue, watch }), [formTemplate]);
 
   return {
     setControls,

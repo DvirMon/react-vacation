@@ -36,7 +36,7 @@ export class FormInputPropsModel {
     public offset?: boolean,
     public size?: GridSize,
     public select?: boolean,
-    public selectOprions?: any[],
+    public selectOptions?: {value : string, label : string}[],
     public inputProps?: Partial<OutlinedInputProps>,
   ) { }
 }

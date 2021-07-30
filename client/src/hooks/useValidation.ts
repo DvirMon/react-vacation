@@ -6,7 +6,7 @@ const loginSchema = Joi.object({
 })
 
 const regsiterSchema = Joi.object({
-  firstName: Joi.string().required(),
+  firstName: Joi.string().min(3).required(),
   lastName: Joi.string().required(),
   username: Joi.string().required(),
   password: Joi.string().required()
