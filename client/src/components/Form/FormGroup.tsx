@@ -49,7 +49,7 @@ const FormGroup: FunctionComponent<FormGroupProps> = (
               id, key,  label, size
             } = formControl;
             return (
-              <Grid key={id} item xs={size || 2}>
+              <Grid key={id} item xs={size || 12}>
                 <FormInput formControl={formControl} error={{ ...errors[key], key: label.toLowerCase() }} />
               </Grid>
             );

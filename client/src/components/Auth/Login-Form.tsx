@@ -1,15 +1,25 @@
 import { FunctionComponent, useState } from "react";
 
-import { Grid } from "@material-ui/core/";
+import { Card, CardContent, Grid, makeStyles, Theme } from "@material-ui/core/";
 import Form from "../Form/Form";
 import LoginTitle from "./Login-Title";
 
 import { useNavigate } from "react-router-dom";
 
-import { LoginModel } from "../../models/user-model";
 import { FormGroupModel } from "../../models/form-model";
 
 import PasswordController from "../Form/PasswordController";
+import CardContainer from "../Card";
+
+const useStyles = makeStyles<Theme>((theme: Theme) => ({
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  card: {
+    padding: theme.spacing(2)
+  },
+}))
 
 export interface LoginFormProps { }
 
@@ -19,11 +29,9 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     [{
       controls:
         [
-          { key: "username", label: 'Username', size: 10 },
+          { label: 'Username' },
           {
-            key: 'password',
             label: 'Password',
-            size: 10,
             render: true,
             Component: (props) => <PasswordController {...props} />
           }
@@ -57,25 +65,27 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     } else {
       console.log(err);
     }
-  }; 
+  };
 
   const onSubmit = (data) => console.log(data)
+  const classes = useStyles()
 
   return (
-    <Grid container>
+    <Grid container className={classes.center}>
       <Grid item lg={12} xs={12}>
         <LoginTitle />
       </Grid>
-      <Grid item lg={12} xs={12}>
-        <Form
-          formTemplate={formTemplate}
-          schemaType="login"
-          onSubmit={onSubmit}
-          buttonProps={{ buttonTitle: "Login", hasButton: true }}
-        />
+      <Grid item lg={8} xs={11} className={classes.center}>
+        <CardContainer>
+          <Form
+            formTemplate={formTemplate}
+            schemaType="login"
+            onSubmit={onSubmit}
+            buttonProps={{ buttonTitle: "Login", hasButton: true }}
+          />
+        </CardContainer>
       </Grid>
     </Grid>
-
   );
 };
 

@@ -5,8 +5,6 @@ type FormError = {
 
 const setMessage = (error : FormError) : string => {
 
-  console.log(error)
-
   if (error.type === 'any.required' || error.type === 'string.empty') {
     return `${error.key} is required`;
   }

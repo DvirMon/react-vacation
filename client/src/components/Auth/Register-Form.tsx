@@ -11,7 +11,7 @@ import { Card, CardActions, CardContent, makeStyles, Theme } from "@material-ui/
 // import generator from "generate-password";
 const useStyles = makeStyles<Theme>((theme: Theme) => ({
   card: {
-    width: '90%',
+    width: '80%',
     [theme.breakpoints.down('xs')]: {
       width: "95% !important",
     },
@@ -24,14 +24,12 @@ const formTemplate: FormGroupModel[] =
     {
       controls:
         [
-          { key: "firstName", label: 'First Name', size: 10 },
-          { key: "lastName", label: 'Last Name', size: 10 },
-          { key: "username", label: 'Username', size: 10 },
+          { key: "firstName", label: 'First Name' },
+          { key: "lastName", label: 'Last Name' },
+          { label: 'Username' },
           {
-            key: 'password',
             label: 'Password',
-            size: 10,
-            // render: true,
+            render: true,
             Component: (props) => <PasswordController {...props} />
           }]
     }

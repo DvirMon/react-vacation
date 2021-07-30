@@ -7,7 +7,7 @@ import FormController from './FormController';
 
 const FormInput = ({
   formControl, error, ...props
-}) => {
+}) => { 
   const message = useMemo(() => setMessage(error), [error]);
   const {
     key, label, type, placeHolder, render, register, control, Component, setValue,

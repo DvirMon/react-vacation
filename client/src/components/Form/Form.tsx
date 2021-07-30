@@ -1,6 +1,6 @@
 import {
   makeStyles,
-  Box, Divider, Button, Grid, Theme
+  Box, Divider, Button, Grid, Theme, GridSize
 } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import useFormBuilder from '../../hooks/useFormBuilder';
@@ -13,7 +13,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) => ({
     justifyContent: 'center',
   },
   buttonContainer: {
-    width: '40%',
+    // width: '100%',
   },
   formButton: {
     width: '100%',
@@ -25,6 +25,7 @@ export interface FormButtonProps {
   hasButton?: boolean
   buttonTitle?: string,
   buttonColor?: "inherit" | "default" | "primary" | "secondary",
+  buttonSize?: GridSize
 }
 
 export interface FormProps {
@@ -36,9 +37,9 @@ export interface FormProps {
 
 const Form: FunctionComponent<FormProps> = (
   {
-    schemaType, 
-    formTemplate, 
-    onSubmit, 
+    schemaType,
+    formTemplate,
+    onSubmit,
     buttonProps
   }) => {
   const {
@@ -50,7 +51,7 @@ const Form: FunctionComponent<FormProps> = (
     }
   );
 
-  const { hasButton, buttonTitle, buttonColor } = buttonProps
+  const { hasButton, buttonTitle, buttonColor, buttonSize } = buttonProps
 
   const classes = useStyles();
 
@@ -66,22 +67,23 @@ const Form: FunctionComponent<FormProps> = (
         ))}
 
         {hasButton && (
-          <Grid item xs={12} className={classes.center}>
-            <Box mb={2}>
+          <>
+            <Grid item xs={12}>
               <Divider />
-            </Box>
+            </Grid>
 
-            <Box className={classes.buttonContainer}>
+            <Grid item xs={buttonSize || 12} className={classes.center}>
               <Button
                 className={classes.formButton}
+                fullWidth
                 type="submit"
                 variant="contained"
                 color={buttonColor || "primary"}
               >
                 {buttonTitle || 'Save'}
               </Button>
-            </Box>
-          </Grid>
+            </Grid>
+          </>
         )}
       </Grid>
     </form>

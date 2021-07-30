@@ -34,7 +34,7 @@ const Login = () => {
           <LoginCard />
         </Grid>
       </Hidden>
-      <Grid item xl={5} lg={5} md={5} className={classes.loginForm}>
+      <Grid item xl={5} lg={5} md={5} xs={12} className={classes.loginForm}>
         <LoginForm />
       </Grid>
     </Grid>
