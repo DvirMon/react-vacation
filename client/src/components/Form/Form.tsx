@@ -68,7 +68,6 @@ const Form: FunctionComponent<FormProps> = (
           <Grid item xs={12} className={classes.center}>
             <Box className={classes.buttonContainer}>
               <Button
-                // disabled={!isValid}
                 className={classes.formButton}
                 type="submit"
                 variant="contained"
