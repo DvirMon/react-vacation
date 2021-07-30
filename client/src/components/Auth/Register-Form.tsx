@@ -29,13 +29,13 @@ const RegisterForm: FunctionComponent = () => {
   return (
 
     <CardContainer>
-        <Form
-          formTemplate={formTemplate}
-          schemaType="register"
-          onSubmit={onSubmit}
-          buttonProps={{ buttonTitle: "Sign in", buttonColor: "secondary", hasButton: true }}
-          />
-          </CardContainer>
+      <Form
+        formTemplate={formTemplate}
+        schemaType="register"
+        onSubmit={onSubmit}
+        buttonProps={{ buttonTitle: "Sign in", buttonColor: "secondary", hasButton: true }}
+      />
+    </CardContainer>
 
   );
 }
