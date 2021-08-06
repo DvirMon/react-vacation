@@ -1,15 +1,19 @@
 import { FunctionComponent, useState } from "react";
 
-import { Card, CardContent, Grid, makeStyles, Theme } from "@material-ui/core/";
+import { Grid, makeStyles, Theme } from "@material-ui/core/";
 import Form from "../Form/Form";
 import LoginTitle from "./Login-Title";
 
 import { useNavigate } from "react-router-dom";
+import { useHttp } from "../../services/http-service";
 
+import { LoginModel } from "../../models/user-model";
 import { FormGroupModel } from "../../models/form-model";
 
 import PasswordController from "../Form/PasswordController";
-import CardContainer from "../Card";
+import CardContainer from "../CardContainer";
+
+import { environment } from "../../environment";
 
 const useStyles = makeStyles<Theme>((theme: Theme) => ({
   center: {
@@ -23,35 +27,42 @@ const useStyles = makeStyles<Theme>((theme: Theme) => ({
 
 export interface LoginFormProps { }
 
+const formTemplate: FormGroupModel[] =
+  [{
+    controls:
+      [
+        { label: 'Username' },
+        {
+          label: 'Password',
+          render: true,
+          Component: (props) => <PasswordController {...props} />
+        }
+      ]
+  }
+  ]
+
+const url = `${environment.server}"/api/auth/login`
+
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
-  const formTemplate: FormGroupModel[] =
-    [{
-      controls:
-        [
-          { label: 'Username' },
-          {
-            label: 'Password',
-            render: true,
-            Component: (props) => <PasswordController {...props} />
-          }
-        ]
-    }
-    ]
-
+  const navigate = useNavigate()
 
   // state hook
   // const [user, setUser] = useState(new LoginModel());
   // const [asyncError, setServerError] = useState(null);
 
-  const navigate = useNavigate()
+  const { post } = useHttp()
 
   // function to handle login request
-  const handleLogIn = async () => {
-    navigate('browser')
+  const handleLogIn = async (user: LoginModel) => {
 
     // handle request
     try {
+
+      const data = await post(url, user);
+      console.log(data)
+
+      // navigate('browser')
       // await loginService.login(user);
     } catch (err) {
       handleErrorResponse(err);
@@ -62,12 +73,13 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     if (err.response?.status === 409) {
       const asyncError = err.response.data;
       // setServerError(asyncError);
+      console.log(err);
     } else {
       console.log(err);
     }
   };
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => handleLogIn(data)
   const classes = useStyles()
 
   return (

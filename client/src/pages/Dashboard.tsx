@@ -29,7 +29,7 @@ const Dashboard: FunctionComponent = () => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar />
-      <Sidebar />
+      {/* <Sidebar /> */}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Outlet />

@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from "@material-ui/core";
 import { FunctionComponent } from "react";
-import VacationScreen from "../components/VacationsDashboard/VacationsScreen";
+import VacationScreen from "../components/Vacation/VacationsScreen";
 
 
 const useStyles = makeStyles((theme) => ({

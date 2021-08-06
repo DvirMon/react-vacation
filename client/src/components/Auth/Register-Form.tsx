@@ -5,7 +5,7 @@ import { FormGroupModel } from "../../models/form-model";
 import Form from "../Form/Form";
 import PasswordController from "../Form/PasswordController";
 
-import CardContainer from '../Card'
+import CardContainer from '../CardContainer'
 import { Button, Grid, makeStyles, Theme } from "@material-ui/core";
 import { useNavigate } from "react-router";
 

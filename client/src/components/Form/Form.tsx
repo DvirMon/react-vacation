@@ -76,7 +76,7 @@ const Form: FunctionComponent<FormProps> = (
               <Button
                 className={classes.formButton}
                 disableRipple
-                disabled={!isValid}
+                // disabled={!isValid}
                 fullWidth
                 type="submit"
                 variant="contained"

@@ -1,6 +1,6 @@
 import { Grid, Hidden, makeStyles } from '@material-ui/core'
 import LoginForm from '../components/Auth/Login-Form'
-import LoginCard from '../components/Auth/Login-Card/Login-Card'
+import LoginCard from '../components/Auth/Login-Card'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -11,9 +11,7 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     backgroundImage: 'url(../../assets/img/backgrounds/login.jpeg)',
     backgroundRepeat: 'no-repeat',
-    backgroundPositionY: '15%',
-    backgroundPositionX: '92%',
-    overflowX: 'hidden'
+    backgroundSize : 'cover',
   },
   loginForm: {
     display: 'flex',
@@ -22,6 +20,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
     backdropFilter: 'blur(5px)',
+
   }
 }))
 
